@@ -48,12 +48,11 @@ export default function CustomerDNA({ interactions }) {
         const dominantSentiment = Object.entries(sentimentCounts)
             .sort(([, a], [, b]) => b - a)[0]?.[0] || 'neutral';
 
-        // Generate Behavioral DNA (sentiment and duration patterns)
-        for (let i = 0; i < Math.min(totalInteractions, 6); i++) {
+        // Generate Behavioral DNA (sentiment and duration patterns) - limited to 4 interactions
+        for (let i = 0; i < Math.min(totalInteractions, 4); i++) {
             const interaction = interactions[i];
-            const interactionNum = i + 1;
 
-            // Sentiment-based icons
+            // Sentiment-based icons only
             if (interaction.sentiment) {
                 switch (interaction.sentiment) {
                     case 'very positive':
@@ -64,7 +63,7 @@ export default function CustomerDNA({ interactions }) {
                     case 'grateful':
                         behavioralDNA.push({
                             emoji: '🟩',
-                            tooltip: `Interaction ${interactionNum}: ${interaction.sentiment} sentiment (${interaction.duration}min via ${interaction.channel})`
+                            tooltip: `Interaction ${i + 1}: ${interaction.sentiment} sentiment (${interaction.duration}min via ${interaction.channel})`
                         });
                         break;
                     case 'very negative':
@@ -75,108 +74,82 @@ export default function CustomerDNA({ interactions }) {
                     case 'disappointed':
                         behavioralDNA.push({
                             emoji: '🟥',
-                            tooltip: `Interaction ${interactionNum}: ${interaction.sentiment} sentiment (${interaction.duration}min via ${interaction.channel})`
+                            tooltip: `Interaction ${i + 1}: ${interaction.sentiment} sentiment (${interaction.duration}min via ${interaction.channel})`
                         });
                         break;
                     case 'confused':
                     case 'curious':
                         behavioralDNA.push({
                             emoji: '🟨',
-                            tooltip: `Interaction ${interactionNum}: ${interaction.sentiment} - customer needed clarification (${interaction.duration}min via ${interaction.channel})`
+                            tooltip: `Interaction ${i + 1}: ${interaction.sentiment} - customer needed clarification (${interaction.duration}min via ${interaction.channel})`
                         });
                         break;
                     default:
                         behavioralDNA.push({
                             emoji: '🟦',
-                            tooltip: `Interaction ${interactionNum}: ${interaction.sentiment || 'neutral'} sentiment (${interaction.duration}min via ${interaction.channel})`
+                            tooltip: `Interaction ${i + 1}: ${interaction.sentiment || 'neutral'} sentiment (${interaction.duration}min via ${interaction.channel})`
                         });
                 }
             } else {
                 behavioralDNA.push({
                     emoji: '🟦',
-                    tooltip: `Interaction ${interactionNum}: neutral sentiment (${interaction.duration}min via ${interaction.channel})`
-                });
-            }
-
-            // Duration-based patterns
-            if (interaction.duration > 60) {
-                behavioralDNA.push({
-                    emoji: '🟪',
-                    tooltip: `Long conversation: ${interaction.duration} minutes - customer needed extensive support`
-                });
-            } else if (interaction.duration < 10) {
-                behavioralDNA.push({
-                    emoji: '🟫',
-                    tooltip: `Quick interaction: ${interaction.duration} minutes - simple query resolved fast`
+                    tooltip: `Interaction ${i + 1}: neutral sentiment (${interaction.duration}min via ${interaction.channel})`
                 });
             }
         }
 
-        // Generate Communication DNA (channel preferences)
+        // Generate Communication DNA (top 2 channels only)
         const sortedChannels = Object.entries(channelCounts)
             .sort(([, a], [, b]) => b - a)
-            .slice(0, 4); // Top 4 most used channels
+            .slice(0, 2); // Only top 2 channels
 
         sortedChannels.forEach(([channel, count]) => {
-            if (count > 0) {
-                const percentage = ((count / totalInteractions) * 100).toFixed(0);
+            if (count > 1) { // Only if used more than once
                 switch (channel) {
                     case 'email':
                         communicationDNA.push({
                             emoji: '✉️',
-                            tooltip: `Email: ${count} interactions (${percentage}% of total) - prefers written communication`
+                            tooltip: `Email: ${count} interactions (${((count / totalInteractions) * 100).toFixed(0)}% of total) - prefers written communication`
                         });
                         break;
                     case 'phone':
                         communicationDNA.push({
                             emoji: '📞',
-                            tooltip: `Phone: ${count} calls (${percentage}% of total) - prefers voice communication`
+                            tooltip: `Phone: ${count} calls (${((count / totalInteractions) * 100).toFixed(0)}% of total) - prefers voice communication`
                         });
                         break;
                     case 'chat':
                         communicationDNA.push({
                             emoji: '💬',
-                            tooltip: `Chat: ${count} sessions (${percentage}% of total) - likes instant messaging`
+                            tooltip: `Chat: ${count} sessions (${((count / totalInteractions) * 100).toFixed(0)}% of total) - likes instant messaging`
                         });
                         break;
                     case 'social':
                         communicationDNA.push({
                             emoji: '📱',
-                            tooltip: `Social: ${count} interactions (${percentage}% of total) - uses social media for support`
+                            tooltip: `Social: ${count} interactions (${((count / totalInteractions) * 100).toFixed(0)}% of total) - uses social media for support`
                         });
                         break;
-                    default:
-                        communicationDNA.push({
-                            emoji: '🔗',
-                            tooltip: `${channel}: ${count} interactions (${percentage}% of total)`
-                        });
                 }
             }
         });
 
-        // Generate Pattern DNA (behavioral indicators)
-        if (escalationRate > 0.5) {
+        // Generate simplified pattern indicators
+        if (escalationRate > 0.3) {
             patternDNA.push({
                 emoji: '⚠️',
                 tooltip: `High escalation rate: ${(escalationRate * 100).toFixed(0)}% of interactions escalated - requires careful handling`
             });
         }
 
-        if (uniqueChannels.length > 3) {
-            patternDNA.push({
-                emoji: '🔄',
-                tooltip: `Channel switcher: Uses ${uniqueChannels.length} different channels - ensure consistent experience`
-            });
-        }
-
         if (avgDuration > 45) {
             patternDNA.push({
-                emoji: '🎯',
+                emoji: '🕐',
                 tooltip: `High engagement: Average ${avgDuration.toFixed(0)} minutes per interaction - appreciates detailed support`
             });
         }
 
-        if (escalationRate === 0 && totalInteractions > 3) {
+        if (escalationRate === 0 && totalInteractions > 2) {
             patternDNA.push({
                 emoji: '✅',
                 tooltip: `Satisfied customer: ${totalInteractions} interactions with 0% escalation rate - low maintenance`
@@ -189,8 +162,8 @@ export default function CustomerDNA({ interactions }) {
             patterns: patternDNA,
             analysis: {
                 totalInteractions,
-                escalationRate: (escalationRate * 100).toFixed(1),
-                avgDuration: avgDuration.toFixed(1),
+                escalationRate: (escalationRate * 100).toFixed(0),
+                avgDuration: avgDuration.toFixed(0),
                 uniqueChannels: uniqueChannels.length,
                 dominantSentiment,
                 channelBreakdown: sortedChannels.map(([channel, count]) => ({
@@ -244,59 +217,39 @@ export default function CustomerDNA({ interactions }) {
     };
 
     return (
-        <div className="dna-container">
-
-
-            {/* Detailed Analysis Section */}
-            <div className="dna-analysis">
-                <div className="analysis-summary">
-                    <strong>Analysis:</strong> {dnaComponents.analysis.totalInteractions} interactions,
-                    {dnaComponents.analysis.escalationRate}% escalation rate,
-                    {dnaComponents.analysis.avgDuration}min avg duration
-                </div>
-                {dnaComponents.analysis.channelBreakdown.length > 0 && (
-                    <div className="channel-breakdown">
-                        <strong>Channels:</strong> {
-                            dnaComponents.analysis.channelBreakdown
-                                .map(({ channel, percentage }) => `${channel} (${percentage}%)`)
-                                .join(', ')
-                        }
-                    </div>
-                )}
-                <div className="sentiment-info">
-                    <strong>Dominant Sentiment:</strong> {dnaComponents.analysis.dominantSentiment}
+        <div className="dna-container mini">
+            <div className="customer-dna mini">
+                <div className="dna-compact">
+                    {renderDNASequence(dnaComponents.behavioral, 'behavioral')}
+                    {dnaComponents.communication.length > 0 && (
+                        <>
+                            <span className="dna-separator">|</span>
+                            {renderDNASequence(dnaComponents.communication, 'communication')}
+                        </>
+                    )}
+                    {dnaComponents.patterns.length > 0 && (
+                        <>
+                            <span className="dna-separator">|</span>
+                            {renderDNASequence(dnaComponents.patterns, 'patterns')}
+                        </>
+                    )}
                 </div>
             </div>
 
-            <div
-                className="customer-dna"
-                style={{
-                    cursor: 'default',
-                    display: 'inline-block'
-                }}
-            >
-                <div className="dna-section behavioral-dna" title="Behavioral Patterns">
-                    <span className="dna-label">Behavior:</span>
-                    <span className="dna-sequence">
-                        {renderDNASequence(dnaComponents.behavioral, 'behavioral')}
-                    </span>
+            <div className="dna-mini-stats">
+                <div className="stats-primary">
+                    {dnaComponents.analysis.totalInteractions} interactions • {dnaComponents.analysis.escalationRate}% escalation • {dnaComponents.analysis.avgDuration}min avg
                 </div>
-                {dnaComponents.communication.length > 0 && (
-                    <div className="dna-section communication-dna" title="Communication Channels">
-                        <span className="dna-label">Channels:</span>
-                        <span className="dna-sequence">
-                            {renderDNASequence(dnaComponents.communication, 'communication')}
+                <div className="stats-secondary">
+                    {dnaComponents.analysis.uniqueChannels} channels • {dnaComponents.analysis.dominantSentiment} sentiment
+                    {dnaComponents.analysis.channelBreakdown.length > 0 && (
+                        <span className="channel-summary">
+                            {' • '}{dnaComponents.analysis.channelBreakdown
+                                .map(({channel, percentage}) => `${channel} ${percentage}%`)
+                                .join(', ')}
                         </span>
-                    </div>
-                )}
-                {dnaComponents.patterns.length > 0 && (
-                    <div className="dna-section patterns-dna" title="Special Patterns">
-                        <span className="dna-label">Patterns:</span>
-                        <span className="dna-sequence">
-                            {renderDNASequence(dnaComponents.patterns, 'patterns')}
-                        </span>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         </div>
     );

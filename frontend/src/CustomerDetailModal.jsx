@@ -171,20 +171,24 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
         </div>
 
         <div className="modal-body">
-          {/* DNA Section */}
-          <div className="dna-section">
-            <h3>Customer DNA Pattern</h3>
-            <div className="dna-display-column">
-              <div className="dna-pattern">
-                <CustomerDNA interactions={customer.interactions} />
-              </div>
-            </div>
-          </div>
-
           {/* Customer Characteristics Section */}
           <div className="characteristics-section">
             <h3>Customer Profile Characteristics</h3>
             <div className="characteristics-grid">
+              {/* DNA Pattern Card */}
+              <div className="characteristic-card dna-card" style={{ borderLeft: `4px solid #007bff` }}>
+                <div className="characteristic-header">
+                  <span className="characteristic-emoji">🧬</span>
+                  <span className="characteristic-type" style={{ color: '#007bff' }}>
+                    DNA Pattern
+                  </span>
+                </div>
+                <div className="dna-card-content">
+                  <CustomerDNA interactions={customer.interactions} />
+                </div>
+              </div>
+
+              {/* Other Characteristics */}
               {getCustomerCharacteristics(customer.interactions).map((characteristic, index) => (
                 <div key={index} className="characteristic-card" style={{ borderLeft: `4px solid ${characteristic.color}` }}>
                   <div className="characteristic-header">

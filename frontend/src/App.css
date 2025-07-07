@@ -55,6 +55,7 @@
 
 /* Customer Table */
 .customer-table-container {
+    padding-top: 2rem;
   margin-top: 2rem;
   overflow-x: auto;
   border-radius: 8px;
@@ -264,24 +265,46 @@
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   padding: 1.5rem 2rem;
   border-bottom: 2px solid #f0f0f0;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 12px 12px 0 0;
 }
 
-.modal-header h2 {
+.header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.header-info h2 {
   margin: 0;
   color: #2c3e50;
   font-size: 1.8rem;
 }
 
-.customer-id {
-  color: #6c757d;
-  font-weight: normal;
-  font-size: 1rem;
-  margin-left: 0.5rem;
+.header-dna {
+  margin-top: 0.5rem;
+}
+
+/* Responsive header design */
+@media (max-width: 768px) {
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-info {
+    width: 100%;
+  }
+
+  .close-btn {
+    align-self: flex-end;
+    margin-top: -2rem;
+  }
 }
 
 .close-btn {
@@ -601,7 +624,6 @@
 }
 
 .customer-dna {
-margin-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -681,7 +703,7 @@ margin-top: 1rem;
   color: white;
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
@@ -804,6 +826,26 @@ margin-top: 1rem;
   font-size: 0.95rem;
 }
 
+/* DNA Pattern Card Styles */
+.characteristic-card.dna-card {
+  grid-column: span 2; /* Make DNA card span 2 columns if there's space */
+}
+
+.dna-card-content {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(0, 123, 255, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+/* Responsive DNA card */
+@media (max-width: 968px) {
+  .characteristic-card.dna-card {
+    grid-column: span 1; /* Single column on smaller screens */
+  }
+}
+
 /* Responsive design for characteristics */
 @media (max-width: 768px) {
   .characteristics-grid {
@@ -851,5 +893,95 @@ margin-top: 1rem;
   .customer-table th,
   .customer-table td {
     padding: 0.5rem;
+  }
+}
+
+/* Mini DNA Component Styles */
+.dna-container.mini {
+  display: inline-block;
+  margin: 0.25rem 0;
+  max-width: 280px;
+}
+
+.customer-dna.mini {
+  display: inline-block;
+  padding: 0.3rem 0.5rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+}
+
+.customer-dna.mini:hover {
+  transform: scale(1.02);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.dna-compact {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+}
+
+.dna-compact .dna-emoji {
+  font-size: 1em;
+  margin: 0 1px;
+}
+
+.dna-separator {
+  color: #6c757d;
+  font-weight: bold;
+  margin: 0 0.2rem;
+  font-size: 0.8em;
+}
+
+.dna-mini-stats {
+  font-size: 0.7rem;
+  color: #6c757d;
+  margin-top: 0.3rem;
+  text-align: left;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.stats-primary {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.2rem;
+}
+
+.stats-secondary {
+  font-size: 0.65rem;
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.channel-summary {
+  font-style: italic;
+}
+
+/* Responsive mini design */
+@media (max-width: 768px) {
+  .dna-container.mini {
+    max-width: 220px;
+  }
+
+  .customer-dna.mini {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8em;
+  }
+
+  .dna-compact .dna-emoji {
+    font-size: 0.9em;
+  }
+
+  .dna-mini-stats {
+    font-size: 0.65rem;
+  }
+
+  .stats-secondary {
+    font-size: 0.6rem;
   }
 }
