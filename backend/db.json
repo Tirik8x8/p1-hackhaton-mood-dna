@@ -1,0 +1,154 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "interactions": [
+        {
+          "channel": "email",
+          "duration": 10,
+          "content": "Thank you for the quick response!",
+          "sentiment": "grateful",
+          "escalated": false
+        },
+        {
+          "channel": "email",
+          "duration": 8,
+          "content": "Perfect, that solved my issue",
+          "sentiment": "satisfied",
+          "escalated": false
+        },
+        {
+          "channel": "chat",
+          "duration": 5,
+          "content": "Quick question about billing",
+          "sentiment": "neutral",
+          "escalated": false
+        },
+        {
+          "channel": "phone",
+          "duration": 12,
+          "content": "Great service as always",
+          "sentiment": "positive",
+          "escalated": false
+        },
+        {
+          "channel": "email",
+          "duration": 10,
+          "content": "Hello",
+          "sentiment": "slightly positive",
+          "escalated": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Bob 'The Escalator' Smith",
+      "interactions": [
+        {
+          "channel": "phone",
+          "duration": 45,
+          "content": "This is unacceptable, I need to speak to your manager",
+          "sentiment": "angry",
+          "escalated": true
+        },
+        {
+          "channel": "email",
+          "duration": 30,
+          "content": "Still not resolved, very frustrated",
+          "sentiment": "frustrated",
+          "escalated": true
+        },
+        {
+          "channel": "chat",
+          "duration": 25,
+          "content": "Why is this so complicated?",
+          "sentiment": "confused",
+          "escalated": false
+        },
+        {
+          "channel": "phone",
+          "duration": 60,
+          "content": "I demand a refund immediately",
+          "sentiment": "very negative",
+          "escalated": true
+        },
+        {
+          "channel": "email",
+          "duration": 35,
+          "content": "This is ridiculous, third time calling",
+          "sentiment": "frustrated",
+          "escalated": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Carol 'Channel Hopper' Davis",
+      "interactions": [
+        {
+          "channel": "chat",
+          "duration": 15,
+          "content": "Initial inquiry about product",
+          "sentiment": "curious",
+          "escalated": false
+        },
+        {
+          "channel": "email",
+          "duration": 20,
+          "content": "Following up on chat conversation",
+          "sentiment": "neutral",
+          "escalated": false
+        },
+        {
+          "channel": "phone",
+          "duration": 25,
+          "content": "Need to clarify email response",
+          "sentiment": "confused",
+          "escalated": false
+        },
+        {
+          "channel": "social",
+          "duration": 10,
+          "content": "Posted on social media about issue",
+          "sentiment": "slightly negative",
+          "escalated": false
+        },
+        {
+          "channel": "chat",
+          "duration": 18,
+          "content": "Back to chat for quick update",
+          "sentiment": "neutral",
+          "escalated": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "David 'High Engagement' Wilson",
+      "interactions": [
+        {
+          "channel": "phone",
+          "duration": 90,
+          "content": "Detailed discussion about product features and implementation",
+          "sentiment": "engaged",
+          "escalated": false
+        },
+        {
+          "channel": "email",
+          "duration": 75,
+          "content": "Comprehensive follow-up with additional questions",
+          "sentiment": "curious",
+          "escalated": false
+        },
+        {
+          "channel": "phone",
+          "duration": 85,
+          "content": "Deep dive into technical specifications",
+          "sentiment": "satisfied",
+          "escalated": false
+        }
+      ]
+    }
+  ]
+}
