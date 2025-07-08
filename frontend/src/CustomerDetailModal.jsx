@@ -270,7 +270,32 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
                         <td>{interaction.duration}</td>
                         <td>
                           <span className={`sentiment-badge ${interaction.sentiment?.replace(' ', '-')}`}>
-                            {interaction.sentiment}
+                            {(() => {
+                              const sentiment = interaction.sentiment;
+                              switch (sentiment) {
+                                case 'very positive':
+                                case 'positive':
+                                case 'slightly positive':
+                                case 'satisfied':
+                                case 'excited':
+                                case 'grateful':
+                                  return '🟩 ' + sentiment;
+                                case 'very negative':
+                                case 'negative':
+                                case 'slightly negative':
+                                case 'angry':
+                                case 'frustrated':
+                                case 'disappointed':
+                                  return '🟥 ' + sentiment;
+                                case 'confused':
+                                case 'curious':
+                                  return '🟨 ' + sentiment;
+                                case 'engaged':
+                                  return '🎯 ' + sentiment;
+                                default:
+                                  return '🟦 ' + (sentiment || 'neutral');
+                              }
+                            })()}
                           </span>
                         </td>
                         <td>
@@ -280,11 +305,6 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
                         </td>
                         <td className="content-cell">
                           <div>
-                            {interaction.aiGenerated && (
-                              <div className="ai-generated-badge">
-                                🤖 AI Generated
-                              </div>
-                            )}
                             {interaction.content || 'N/A'}
                             {interaction.file && (
                               <div className="file-attachment">
@@ -341,7 +361,7 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
                 </div>
               </div>
               <div className="form-group">
-                <label htmlFor="file">File Attachment - Optional</label>
+                <label htmlFor="file">File Attachment</label>
                 <input
                   id="file"
                   type="file"
