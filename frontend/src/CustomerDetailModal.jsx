@@ -2,37 +2,76 @@ import React, { useState } from 'react';
 import CustomerDNA from './CustomerDNA';
 
 export default function CustomerDetailModal({ customer, onClose, onInteractionAdded }) {
-  const [form, setForm] = useState({ channel: '', duration: '', content: '' });
+  const [form, setForm] = useState({ channel: '', duration: '', content: '', file: null });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+  const [aiGenerationStep, setAiGenerationStep] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setForm((f) => ({ ...f, file }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     setError(null);
+
+    // AI Generation simulation steps
+    const generationSteps = [
+      'Analyzing interaction context...',
+      'Generating content using AI...',
+      'Performing sentiment analysis...',
+      'Calculating escalation probability...',
+      'Finalizing interaction data...'
+    ];
+
     try {
+      // Simulate AI generation with step-by-step progress
+      for (let i = 0; i < generationSteps.length; i++) {
+        setAiGenerationStep(generationSteps[i]);
+        await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 1000)); // 1-3 seconds per step
+      }
+
+      const payload = {
+        channel: form.channel,
+        ...(form.duration && { duration: Number(form.duration) }),
+        ...(form.content && { content: form.content }),
+        ...(form.file && { file: { name: form.file.name, size: form.file.size, type: form.file.type } })
+      };
+
+      setAiGenerationStep('Saving interaction...');
       const res = await fetch(`http://localhost:3000/customers/${customer.id}/interactions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          channel: form.channel,
-          duration: Number(form.duration),
-          content: form.content,
-        }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error('Failed to add interaction');
       const data = await res.json();
+
+      setAiGenerationStep('Complete! ✨');
+      await new Promise(resolve => setTimeout(resolve, 500)); // Show completion briefly
+
+      // Show success animation
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 2000);
+
       onInteractionAdded(data);
-      setForm({ channel: '', duration: '', content: '' });
+      setForm({ channel: '', duration: '', content: '', file: null });
+      // Reset file input
+      const fileInput = document.getElementById('file');
+      if (fileInput) fileInput.value = '';
     } catch (err) {
       setError(err.message);
     } finally {
       setSubmitting(false);
+      setAiGenerationStep('');
     }
   };
 
@@ -222,7 +261,7 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
                   <tbody>
                     {customer.interactions.map((interaction, idx) => (
                       <tr key={idx}>
-                        <td>{new Date().toLocaleDateString()}</td>
+                        <td>{interaction.date ? new Date(interaction.date).toLocaleDateString() : 'N/A'}</td>
                         <td>
                           <span className={`channel-badge ${interaction.channel}`}>
                             {interaction.channel}
@@ -239,7 +278,21 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
                             {interaction.escalated ? 'Yes' : 'No'}
                           </span>
                         </td>
-                        <td className="content-cell">{interaction.content || 'N/A'}</td>
+                        <td className="content-cell">
+                          <div>
+                            {interaction.aiGenerated && (
+                              <div className="ai-generated-badge">
+                                🤖 AI Generated
+                              </div>
+                            )}
+                            {interaction.content || 'N/A'}
+                            {interaction.file && (
+                              <div className="file-attachment">
+                                📎 {interaction.file.name} ({Math.round(interaction.file.size / 1024)}KB)
+                              </div>
+                            )}
+                          </div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -253,10 +306,13 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
           {/* Add Interaction Section */}
           <div className="add-interaction-section">
             <h3>Add New Interaction</h3>
+            <p className="form-description">
+              🤖 AI-Powered Interaction Generator: Provide channel and duration. AI will generate realistic content, sentiment analysis, and escalation probability automatically.
+            </p>
             <form className="interaction-form" onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="channel">Channel</label>
+                  <label htmlFor="channel">Channel *</label>
                   <select
                     id="channel"
                     name="channel"
@@ -281,26 +337,49 @@ export default function CustomerDetailModal({ customer, onClose, onInteractionAd
                     placeholder="Duration"
                     value={form.duration}
                     onChange={handleChange}
-                    required
                   />
                 </div>
               </div>
               <div className="form-group">
-                <label htmlFor="content">Interaction Content</label>
-                <textarea
-                  id="content"
-                  name="content"
-                  placeholder="Describe the interaction details..."
-                  value={form.content}
-                  onChange={handleChange}
-                  required
-                  rows="3"
+                <label htmlFor="file">File Attachment - Optional</label>
+                <input
+                  id="file"
+                  type="file"
+                  name="file"
+                  onChange={handleFileChange}
+                  accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif"
                 />
+                {form.file && (
+                  <div className="file-preview">
+                    Selected: {form.file.name} ({Math.round(form.file.size / 1024)}KB)
+                  </div>
+                )}
               </div>
               <div className="form-actions">
-                <button type="submit" disabled={submitting} className="submit-btn">
-                  {submitting ? 'Adding...' : 'Add Interaction'}
-                </button>
+                {!submitting && !showSuccess ? (<button type="submit" disabled={submitting} className="submit-btn">
+                    Add Interaction
+                </button>) : null}
+
+
+                {submitting && aiGenerationStep && (
+                  <div className="ai-generation-progress">
+                    <div className="ai-icon">🤖</div>
+                    <div className="generation-step">
+                      <span className="step-text">{aiGenerationStep}</span>
+                      <div className="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {showSuccess && (
+                  <div className="success-animation">
+                    <div className="success-icon">✨</div>
+                    <span>Interaction generated successfully!</span>
+                  </div>
+                )}
               </div>
               {error && <div className="error-message">{error}</div>}
             </form>
