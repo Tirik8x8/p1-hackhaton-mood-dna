@@ -40,44 +40,44 @@ app.post('/customers', (req, res) => {
 const generateRandomContent = (channel) => {
   const contentTemplates = {
     email: [
-      'I need help with my account settings',
-      'Thank you for your assistance',
-      'I have a question about billing',
-      'There seems to be an issue with my order',
-      'Can you help me understand this feature?',
-      'I\'m experiencing technical difficulties',
-      'Great service, very satisfied',
-      'This is taking too long to resolve'
+      'Account settings assistance requested',
+      'Gratitude for previous support',
+      'Billing discrepancy inquiry',
+      'Order status update request',
+      'Product feature clarification',
+      'Login and performance issues',
+      'Positive service feedback',
+      'Escalated resolution concerns'
     ],
     phone: [
-      'Called regarding billing inquiry',
-      'Phone support for technical issue',
-      'Urgent matter needs immediate attention',
-      'Follow-up call on previous issue',
-      'General inquiry about services',
-      'Complaint about service quality',
-      'Praise for excellent support',
-      'Request for account information'
+      'Billing charges discussion',
+      'Technical troubleshooting support',
+      'Urgent issue intervention',
+      'Previous ticket follow-up',
+      'General service inquiry',
+      'Service quality complaint',
+      'Support team commendation',
+      'Account information request'
     ],
     chat: [
-      'Quick question via chat',
-      'Live chat support session',
-      'Need immediate assistance',
-      'Chat inquiry about product',
-      'Technical support via chat',
-      'Billing question through chat',
-      'Product information request',
-      'Issue resolution via chat'
+      'Quick product information',
+      'Real-time troubleshooting session',
+      'Critical system assistance',
+      'Product specification clarification',
+      'Technical guidance request',
+      'Billing concerns addressed',
+      'Documentation resource request',
+      'Connectivity issue resolution'
     ],
     social: [
-      'Social media inquiry',
-      'Public complaint on social platform',
-      'Positive feedback on social media',
-      'Question posted on company page',
-      'Social media support request',
-      'Public praise for service',
-      'Issue raised on social platform',
-      'Community forum discussion'
+      'Service availability inquiry',
+      'Public negative experience',
+      'Positive review published',
+      'Product update question',
+      'Social platform support',
+      'Public service recognition',
+      'Social media concerns',
+      'Community improvement discussion'
     ]
   };
 

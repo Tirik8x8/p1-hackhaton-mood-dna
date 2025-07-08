@@ -8,7 +8,7 @@
           "date": "2025-06-20T10:30:00.000Z",
           "channel": "email",
           "duration": 10,
-          "content": "Thank you for the quick response!",
+          "content": "Gratitude for previous support",
           "sentiment": "grateful",
           "escalated": false
         },
@@ -16,7 +16,7 @@
           "date": "2025-06-25T14:15:00.000Z",
           "channel": "email",
           "duration": 8,
-          "content": "Perfect, that solved my issue",
+          "content": "Positive service feedback",
           "sentiment": "satisfied",
           "escalated": false
         },
@@ -24,7 +24,7 @@
           "date": "2025-07-01T09:45:00.000Z",
           "channel": "chat",
           "duration": 5,
-          "content": "Quick question about billing",
+          "content": "Billing concerns addressed",
           "sentiment": "neutral",
           "escalated": false
         },
@@ -32,56 +32,8 @@
           "date": "2025-07-03T16:20:00.000Z",
           "channel": "phone",
           "duration": 12,
-          "content": "Great service as always",
+          "content": "Support team commendation",
           "sentiment": "positive",
-          "escalated": false
-        },
-        {
-          "date": "2025-07-05T11:00:00.000Z",
-          "channel": "email",
-          "duration": 10,
-          "content": "Hello",
-          "sentiment": "slightly positive",
-          "escalated": false
-        },
-        {
-          "date": "2025-07-07T09:43:41.153Z",
-          "channel": "email",
-          "duration": 15,
-          "content": "I have a question about billing",
-          "sentiment": "curious",
-          "escalated": false
-        },
-        {
-          "date": "2025-06-15T06:41:01.896Z",
-          "channel": "email",
-          "duration": 15,
-          "content": "This is taking too long to resolve",
-          "sentiment": "negative",
-          "escalated": false
-        },
-        {
-          "date": "2025-07-01T12:25:00.535Z",
-          "channel": "email",
-          "duration": 77,
-          "content": "I'm experiencing technical difficulties",
-          "sentiment": "neutral",
-          "escalated": false
-        },
-        {
-          "date": "2025-06-26T09:22:29.045Z",
-          "channel": "email",
-          "duration": 59,
-          "content": "Great service, very satisfied",
-          "sentiment": "grateful",
-          "escalated": false
-        },
-        {
-          "date": "2025-07-05T00:53:46.179Z",
-          "channel": "email",
-          "duration": 123,
-          "content": "I'm experiencing technical difficulties",
-          "sentiment": "neutral",
           "escalated": false
         }
       ]
@@ -94,7 +46,7 @@
           "date": "2025-06-15T13:30:00.000Z",
           "channel": "phone",
           "duration": 45,
-          "content": "This is unacceptable, I need to speak to your manager",
+          "content": "Urgent issue intervention",
           "sentiment": "angry",
           "escalated": true
         },
@@ -102,7 +54,7 @@
           "date": "2025-06-18T10:15:00.000Z",
           "channel": "email",
           "duration": 30,
-          "content": "Still not resolved, very frustrated",
+          "content": "Escalated resolution concerns",
           "sentiment": "frustrated",
           "escalated": true
         },
@@ -110,7 +62,7 @@
           "date": "2025-06-22T15:45:00.000Z",
           "channel": "chat",
           "duration": 25,
-          "content": "Why is this so complicated?",
+          "content": "Product feature clarification",
           "sentiment": "confused",
           "escalated": false
         },
@@ -118,7 +70,7 @@
           "date": "2025-06-28T12:00:00.000Z",
           "channel": "phone",
           "duration": 60,
-          "content": "I demand a refund immediately",
+          "content": "Service quality complaint",
           "sentiment": "very negative",
           "escalated": true
         },
@@ -126,7 +78,7 @@
           "date": "2025-07-02T14:30:00.000Z",
           "channel": "email",
           "duration": 35,
-          "content": "This is ridiculous, third time calling",
+          "content": "Account information request",
           "sentiment": "frustrated",
           "escalated": true
         }
@@ -140,7 +92,7 @@
           "date": "2025-06-10T09:00:00.000Z",
           "channel": "chat",
           "duration": 15,
-          "content": "Initial inquiry about product",
+          "content": "Quick product information",
           "sentiment": "curious",
           "escalated": false
         },
@@ -148,7 +100,7 @@
           "date": "2025-06-12T11:30:00.000Z",
           "channel": "email",
           "duration": 20,
-          "content": "Following up on chat conversation",
+          "content": "Previous ticket follow-up",
           "sentiment": "neutral",
           "escalated": false
         },
@@ -156,7 +108,7 @@
           "date": "2025-06-15T14:20:00.000Z",
           "channel": "phone",
           "duration": 25,
-          "content": "Need to clarify email response",
+          "content": "Technical guidance request",
           "sentiment": "confused",
           "escalated": false
         },
@@ -164,7 +116,7 @@
           "date": "2025-06-18T16:45:00.000Z",
           "channel": "social",
           "duration": 10,
-          "content": "Posted on social media about issue",
+          "content": "Social media concerns",
           "sentiment": "slightly negative",
           "escalated": false
         },
@@ -172,7 +124,7 @@
           "date": "2025-06-20T13:15:00.000Z",
           "channel": "chat",
           "duration": 18,
-          "content": "Back to chat for quick update",
+          "content": "Real-time troubleshooting session",
           "sentiment": "neutral",
           "escalated": false
         }
@@ -186,7 +138,7 @@
           "date": "2025-06-08T10:00:00.000Z",
           "channel": "phone",
           "duration": 90,
-          "content": "Detailed discussion about product features and implementation",
+          "content": "Technical troubleshooting support",
           "sentiment": "engaged",
           "escalated": false
         },
@@ -194,7 +146,7 @@
           "date": "2025-06-12T15:30:00.000Z",
           "channel": "email",
           "duration": 75,
-          "content": "Comprehensive follow-up with additional questions",
+          "content": "Documentation resource request",
           "sentiment": "curious",
           "escalated": false
         },
@@ -202,7 +154,7 @@
           "date": "2025-06-16T11:45:00.000Z",
           "channel": "phone",
           "duration": 85,
-          "content": "Deep dive into technical specifications",
+          "content": "Product specification clarification",
           "sentiment": "satisfied",
           "escalated": false
         }
