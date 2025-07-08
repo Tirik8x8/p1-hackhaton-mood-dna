@@ -952,8 +952,50 @@
 .dna-compact {
   display: flex;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.3rem;
   flex-wrap: wrap;
+}
+
+.behavioral-dna-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.sentiment-row,
+.channel-row {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+}
+
+.sentiment-row .dna-emoji {
+  font-size: 1em;
+  margin: 0;
+  text-align: center;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.channel-emoji {
+  font-size: 0.8em;
+  margin: 0;
+  opacity: 0.8;
+  text-align: center;
+  width: 22px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 1;
 }
 
 .dna-compact .dna-emoji {
@@ -966,6 +1008,7 @@
   font-weight: bold;
   margin: 0 0.2rem;
   font-size: 0.8em;
+  align-self: center;
 }
 
 .dna-mini-stats {
@@ -996,7 +1039,7 @@
 /* Responsive mini design */
 @media (max-width: 768px) {
   .dna-container.mini {
-    max-width: 220px;
+    max-width: 260px;
   }
 
   .customer-dna.mini {
@@ -1006,6 +1049,18 @@
 
   .dna-compact .dna-emoji {
     font-size: 0.9em;
+  }
+
+  .sentiment-row .dna-emoji {
+    font-size: 0.9em;
+    width: 20px;
+    height: 20px;
+  }
+
+  .channel-emoji {
+    font-size: 0.7em;
+    width: 20px;
+    height: 16px;
   }
 
   .dna-mini-stats {

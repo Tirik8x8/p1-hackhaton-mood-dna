@@ -48,9 +48,21 @@ export default function CustomerDNA({ interactions }) {
         const dominantSentiment = Object.entries(sentimentCounts)
             .sort(([, a], [, b]) => b - a)[0]?.[0] || 'neutral';
 
+        // Helper function to get channel emoji
+        const getChannelEmoji = (channel) => {
+            switch (channel) {
+                case 'email': return '✉️';
+                case 'phone': return '📞';
+                case 'chat': return '💬';
+                case 'social': return '📱';
+                default: return '📋';
+            }
+        };
+
         // Generate Behavioral DNA (sentiment and duration patterns) - limited to 4 interactions
         for (let i = 0; i < Math.min(totalInteractions, 4); i++) {
             const interaction = interactions[i];
+            const channelEmoji = getChannelEmoji(interaction.channel);
 
             // Sentiment-based icons only
             if (interaction.sentiment) {
@@ -63,6 +75,7 @@ export default function CustomerDNA({ interactions }) {
                     case 'grateful':
                         behavioralDNA.push({
                             emoji: '🟩',
+                            channelEmoji: channelEmoji,
                             tooltip: `Interaction ${i + 1}: ${interaction.sentiment} sentiment (${interaction.duration}min via ${interaction.channel})`
                         });
                         break;
@@ -74,6 +87,7 @@ export default function CustomerDNA({ interactions }) {
                     case 'disappointed':
                         behavioralDNA.push({
                             emoji: '🟥',
+                            channelEmoji: channelEmoji,
                             tooltip: `Interaction ${i + 1}: ${interaction.sentiment} sentiment (${interaction.duration}min via ${interaction.channel})`
                         });
                         break;
@@ -81,18 +95,21 @@ export default function CustomerDNA({ interactions }) {
                     case 'curious':
                         behavioralDNA.push({
                             emoji: '🟨',
+                            channelEmoji: channelEmoji,
                             tooltip: `Interaction ${i + 1}: ${interaction.sentiment} - customer needed clarification (${interaction.duration}min via ${interaction.channel})`
                         });
                         break;
                     default:
                         behavioralDNA.push({
                             emoji: '🟦',
+                            channelEmoji: channelEmoji,
                             tooltip: `Interaction ${i + 1}: ${interaction.sentiment || 'neutral'} sentiment (${interaction.duration}min via ${interaction.channel})`
                         });
                 }
             } else {
                 behavioralDNA.push({
                     emoji: '🟦',
+                    channelEmoji: channelEmoji,
                     tooltip: `Interaction ${i + 1}: neutral sentiment (${interaction.duration}min via ${interaction.channel})`
                 });
             }
@@ -204,6 +221,36 @@ export default function CustomerDNA({ interactions }) {
     const description = getDNADescription(interactions);
 
     const renderDNASequence = (dnaArray, sectionClass) => {
+        if (sectionClass === 'behavioral') {
+            return (
+                <div className="behavioral-dna-container">
+                    <div className="sentiment-row">
+                        {dnaArray.map((item, index) => (
+                            <span
+                                key={index}
+                                className={`dna-emoji ${sectionClass}-emoji`}
+                                title={item.tooltip}
+                                data-tooltip={item.tooltip}
+                            >
+                                {item.emoji}
+                            </span>
+                        ))}
+                    </div>
+                    <div className="channel-row">
+                        {dnaArray.map((item, index) => (
+                            <span
+                                key={index}
+                                className="channel-emoji"
+                                title={item.tooltip}
+                            >
+                                {item.channelEmoji}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
         return dnaArray.map((item, index) => (
             <span
                 key={index}
